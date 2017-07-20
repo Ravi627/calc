@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     {
         if let num = click.titleLabel?.text{ // foce unwrapping
         
-            if textfield.text == "0" {
+            if textfield.text == "0" || textfield.text == "Error" {
              textfield.text = num
              counter = 1;
             }
@@ -173,6 +173,7 @@ class ViewController: UIViewController {
             if num2 == 0
             {
                 textfield.text = "Error"
+                return
             }
             else{
                 ans = num1/num2
@@ -182,9 +183,6 @@ class ViewController: UIViewController {
         
         operatorlable.text = ""
         textfield.text = String(ans)
-        num1 = 0
-        num2 = 0
-        ans = 0
         lastnum = ""
     }
 
@@ -196,17 +194,18 @@ class ViewController: UIViewController {
     
     @IBAction func all_clear (click: UIButton)// clear everything
     {
-    textfield.text = "0";
+    textfield.text = "0"
     lastnum = "0"
+    operatorlable.text = ""
     }
 
     @IBAction func clear (click: UIButton) // clear digit by digit
     {
         if let no = textfield?.text{
             
-            var temp:Int32 = Int32(no)!;
-            temp = temp/10 ;
-            textfield.text = String(temp) ;
+            var temp:Int32 = Int32(no)!
+            temp = temp/10
+            textfield.text = String(temp) 
         }
     
     }
