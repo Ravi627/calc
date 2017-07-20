@@ -10,9 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
+   /***************************************************/
+    
     @IBOutlet var textfield: UILabel!
     @IBOutlet var operatorlable: UILabel!
-    var counter:Int32 = 0 //counting no. of digits
+    var counter:Int = 0                                             //counting no. of digits
+    var signed_counter:Int = 0                                      //for signed or unsigned
     var lastnum:String = ""
     var num1:Int = 0
     var num2:Int = 0
@@ -32,12 +35,12 @@ class ViewController: UIViewController {
  
     
     
+   /***************************************************/
+   //numpad
     
-    
-    
-    @IBAction func clicked (click: UIButton) // numpad
+    @IBAction func clicked (click: UIButton)
     {
-        if let num = click.titleLabel?.text{ // foce unwrapping
+        if let num = click.titleLabel?.text{                        // foce unwrapping
         
             if textfield.text == "0" || textfield.text == "Error" {
              textfield.text = num
@@ -45,7 +48,7 @@ class ViewController: UIViewController {
             }
             else{
                 
-               if counter < 10{ //limiting the no.of digits
+               if counter < 10{                                     //limiting the no.of digits
                 textfield.text = textfield.text! + num
                 counter+=1
                }
@@ -53,12 +56,27 @@ class ViewController: UIViewController {
         }
        // print(counter)
     }
+    /***************************************************/
+    //signed/unsigned
     
     
+    @IBAction func signed (click: UIButton)
+    {
+        if signed_counter % 2 == 0
+        {
+                textfield.text = "-"
+        }
+        else {
+            textfield.text = "0"
+        }
+         signed_counter += 1
+    }
     
+    
+    /***************************************************/
     // operator functions
     
-    @IBAction func plus (click: UIButton)
+    @IBAction func plus (click: UIButton)                                   //Addition
     {
         if operatorlable.text == ""{
             operatorlable.text = "+"
@@ -76,9 +94,8 @@ class ViewController: UIViewController {
         }
     }
     
-   
     
-    @IBAction func minus (click: UIButton)
+    @IBAction func minus (click: UIButton)                                 // subtraction
     {
         if operatorlable.text == ""{
         operatorlable.text = "-"
@@ -96,10 +113,8 @@ class ViewController: UIViewController {
         }
     }
     
-   
     
-    
-    @IBAction func multi (click: UIButton)
+    @IBAction func multi (click: UIButton)                                 //multiplication
     {
         if operatorlable.text == ""{
             operatorlable.text = "x"
@@ -117,9 +132,7 @@ class ViewController: UIViewController {
         }    }
     
     
-    
-    
-    @IBAction func divide (click: UIButton)
+    @IBAction func divide (click: UIButton)                                 // division
     {
         if operatorlable.text == ""{
             operatorlable.text = "/"
@@ -137,17 +150,16 @@ class ViewController: UIViewController {
         }
     }
     
-   
     
-    @IBAction func equals (_:AnyObject?)
+    @IBAction func equals (_:AnyObject?)                                    // main functionality
     {
         
-        if let temp = Int(lastnum) // convertin string to no.
+        if let temp = Int(lastnum)                                          // convertin string to no.
         {
             num1 = temp
         }
         
-        if let temp1 = textfield?.text // converting string to no.
+        if let temp1 = textfield?.text                                      // converting string to no.
         {
           if let temp2 = Int(temp1)
           {
@@ -169,7 +181,7 @@ class ViewController: UIViewController {
         
             ans = num1 * num2
         }
-        else if operatorlable.text == "/"{
+        else if operatorlable.text == "/"{                                      // divide by 0 resolver
             if num2 == 0
             {
                 textfield.text = "Error"
@@ -188,25 +200,34 @@ class ViewController: UIViewController {
 
     
     
-    
+    /***************************************************/
     // functions to clear
     
     
-    @IBAction func all_clear (click: UIButton)// clear everything
+    @IBAction func all_clear (click: UIButton)                                  // clear everything
     {
     textfield.text = "0"
     lastnum = "0"
     operatorlable.text = ""
     }
 
-    @IBAction func clear (click: UIButton) // clear digit by digit
+    @IBAction func clear (click: UIButton)                                      // clear digit at a time and operator if available
     {
+       if operatorlable.text != ""{
+        
         if let no = textfield?.text{
             
-            var temp:Int32 = Int32(no)!
+            var temp:Int = Int(no)!
             temp = temp/10
             textfield.text = String(temp) 
+            }
         }
+       else {
+        
+            operatorlable.text = ""
+        
+        }
+        
     
     }
 }
