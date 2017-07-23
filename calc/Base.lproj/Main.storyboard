@@ -304,6 +304,7 @@
                                 </state>
                                 <connections>
                                     <action selector="all_clearWithClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AAb-6k-SxJ"/>
+                                    <action selector="signedWithClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3D0-t6-bGM"/>
                                 </connections>
                             </button>
                         </subviews>
